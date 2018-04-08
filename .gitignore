@@ -1,6 +1,3 @@
 # Created by .ignore support plugin (hsz.mobi)
 .gitignore
-grpc.iml
-src/test/
-target/
 /.idea/
