@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.tlyong.grpc.examples.demo.DemoProto;
 import com.tlyong.grpc.examples.demo.DemoServiceGrpc;
 import io.grpc.ManagedChannel;
+import io.grpc.internal.GrpcUtil;
 import io.grpc.netty.NettyChannelBuilder;
 
 import javax.net.ssl.SSLException;
@@ -32,9 +33,8 @@ public class GrpcClient {
     void init(String host, int port) throws SSLException, IOException {
   
 //        SslContext sslContext = GrpcSslContexts.forClient().trustManager(TestUtils.loadCert("ca.pem")).build();
-//        SslContext sslContext = GrpcSslContexts.forClient().trustManager().build();
-        /*String  tagert = GrpcUtil.authorityFromHostAndPort(host, port);
-        System.out.println("tagert:"+tagert);*/  
+        String  tagert = GrpcUtil.authorityFromHostAndPort(host, port);
+        System.out.println("tagert:"+tagert);
         channel =  NettyChannelBuilder.forAddress(host, port).usePlaintext(true).build();
         //.negotiationType(NegotiationType.PLAINTEXT)  和这个是等效  usePlaintext(true)  
           
@@ -58,9 +58,11 @@ public class GrpcClient {
         grpcClient.init("127.0.0.1", 8888);
         //构建请求参数  
         DemoProto.LoginRequest request = DemoProto.LoginRequest.newBuilder().setUserName("yyc").build();
+
         //同步阻塞调用  
         DemoProto.LoginResponse loginResponse = grpcClient.blockingStub.login(request);
-        System.out.println("同步调用后返回"+loginResponse.getMsg());  
+        System.out.println("同步调用后返回"+loginResponse.getMsg());
+
         //异步非阻塞调用  
         ListenableFuture<DemoProto.LoginResponse> loginResponse2 = grpcClient.futureStub.login(request);
         DemoProto.LoginResponse loginResponseFuture =  loginResponse2.get();

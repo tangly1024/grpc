@@ -277,7 +277,7 @@ public class GrpcClient {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException, SSLException, IOException {
         GrpcClient grpcClient = new GrpcClient();
-        grpcClient.init("192.168.100.110", 8888);
+        grpcClient.init("127.0.0.1", 8888);
         //构建请求参数
         LoginRequest request = LoginRequest.newBuilder().setUserName("yyc").build();
         //同步阻塞调用
