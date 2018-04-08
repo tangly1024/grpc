@@ -19,7 +19,7 @@ gRPC  是一个高性能、开源和通用的 gooogle开发RPC 框架，基于 H
 
 ### 注意:
 该工程只有一个protobuf文件user.proto,这个文件必须要在src->main->proto目录下，否则打包不了。pom.xml配置如下:
-``` [xml]
+``` xml
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -202,8 +202,10 @@ class  Serviceimpl implements   DemoServiceGrpc.DemoService{
 }
 
 ```
+
 客户端实现:
-```
+
+``` java
 package grpc;
 
 import java.io.IOException;
